@@ -76,20 +76,6 @@ def __breedPopulation(population, hyperParams):
     pool = __potentialChildren(population)
     logging.debug("Breeding population of size " + str(len(pool)))
     children = random.sample(pool, int(min(len(pool), (hyperParams.popSize*(1-hyperParams.immigrationSize))-len(population))))
-    ################
-   # children = set()
-   # permutations = __numberOfPerms(population)
-   # logging.debug(str(permutations) + " are possible with this breeding population")
-   # while len(children) < min(permutations, (hyperParams.popSize*(1-hyperParams.immigrationSize))-len(population)):
-   #     mum = random.choice(population)
-   #     dad = random.choice(population)
-   #     son = __crossover(mum, dad)
-   #     children.add(son)
-   #     logging.debug("Mum of " + str(mum) + " and Dad of " + str(dad) + " created a child " + str(son))
-
-        # It's possible to have too few permutations on the data set to make a unique children set of the required size
-        # This happens when dps is low and the target m and x are in the lower or upper bounds of their respective ranges
-        # Solution is to test to see how many candidates could ever be in the children set and use that
     logging.debug(str(len(children)) + " children generated")
     mutatedChildren = __mutate(children, hyperParams)
     immigrants = hyperParams.popSize - (len(children) + len(population))
